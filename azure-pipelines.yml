@@ -7,9 +7,9 @@
     vmImage: 'ubuntu-latest'
 
   variables:
-    azureSubscription: 'YourAzureSubscriptionName'
+    azureSubscriptionId: '7232b02a-48c6-4a31-9fa8-014dc71bb52c'
     resourceGroupName: 'MyResourceGroup'
-    location: 'East US'
+    location: 'eastus'  # Replace with desired location
 
   steps:
     - task: AzureCLI@2
