@@ -27,9 +27,8 @@ steps:
       action: 'Create Or Update Resource Group'
       resourceGroupName: ${{ variables.resourceGroupName }}
       location: ${{ variables.location }}
-      templateLocation: "URL of the file"
-      templateFile: "https://raw.githubusercontent.com/sample-projects-only/adosample1/refs/heads/main/azuredeploy.json"  # Replace with your ARM template file path
-
+      templateLocation: "https://raw.githubusercontent.com/sample-projects-only/adosample1/refs/heads/main/azuredeploy.json"
+      templateFile: "https://raw.githubusercontent.com/sample-projects-only/adosample1/refs/heads/main/azuredeploy.json"
   - script: |
       echo Add other tasks to build, test, and deploy your project.
       echo See https://aka.ms/yaml
