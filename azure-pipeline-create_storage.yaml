@@ -11,8 +11,8 @@ pool:
 
 variables:
   # Replace with your Azure Subscription ID
-  azureSubscriptionId: 'your-azure-subscription-id'
-  resourceGroupName: 'abcRG'
+  azureSubscriptionId: '7232b02a-48c6-4a31-9fa8-014dc71bb52c'
+  resourceGroupName: 'TestADORG'
   location: 'eastus'  # Replace with desired location
 
 steps:
