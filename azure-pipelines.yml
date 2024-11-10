@@ -27,10 +27,31 @@ steps:
       action: 'Create Or Update Resource Group'
       resourceGroupName: ${{ variables.resourceGroupName }}
       location: ${{ variables.location }}
-      templateLocation: 'linkedFile'
-      templateFile: 'azuredeploy.json'  # Replace with your ARM template file path
+      templateLocation: 'Inline template'  # Changed to Inline template
+      templateFile: |
+        {
+          "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "resources": [
+            {
+              "type": "Microsoft.Storage/storageAccounts",
+              "apiVersion": "2019-06-01",
+              "name": "[concat('st', uniqueString(resourceId('Microsoft.ResourceGroups/resourceGroups/', variables('resourceGroupName'))))]",
+              "location": "[variables('location')]",
+              "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard",
+                "replicationType": "LRS"
+              }
+            }
+          ],
+          "variables": {
+            "resourceGroupName": "[variables('resourceGroupName')]",
+            "location": "[variables('location')]"
+          }
+        }
 
   - script: |
       echo Add other tasks to build, test, and deploy your project.
       echo See https://aka.ms/yaml
-    displayName: 'Run a multi-line script'
+    displayName: 'Run a 1  multi-line script'
