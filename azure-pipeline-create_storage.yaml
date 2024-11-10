@@ -22,6 +22,7 @@ steps:
   - task: AzureResourceGroupDeployment@2
     displayName: 'Deploy Storage Account'
     inputs:
+      connectedServiceName: 'ADOAPPRegistration'  # Replace with your service connection name
       azureSubscriptionId: ${{ variables.azureSubscriptionId }}
       action: 'CreateOrUpdate'
       resourceGroupName: ${{ variables.resourceGroupName }}
