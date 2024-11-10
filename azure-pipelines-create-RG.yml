@@ -1,0 +1,40 @@
+trigger:
+  - main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  resourceGroupName: 'MySampleResourceGroup'
+  location: 'eastus'  # Replace with desired location
+
+steps:
+  - task: AzureResourceGroupDeployment@2
+    displayName: 'Create Resource Group'
+    inputs:
+      connectedServiceName: 'ADOAPPRegistration'  # Replace with your service connection name
+      action: 'Deploy'
+      resourceGroupName: ${{ variables.resourceGroupName }}
+      location: ${{ variables.location }}
+      templateLocation: 'inlineTemplate'
+      template: |
+        {
+          "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "resources": [
+            {
+              "type": "Microsoft.Resources/resourceGroups",
+              "apiVersion": "2019-10-01",
+              "name": "[parameters('resourceGroupName')]",
+              "location": "[parameters('location')]"
+            }
+          ],
+          "parameters": {
+            "resourceGroupName": {
+              "type": "string"
+            },
+            "location": {
+              "type": "string"
+            }
+          }
+        }
