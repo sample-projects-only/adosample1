@@ -1,33 +1,36 @@
- # YAML Pipeline Definition
+# Starter pipeline with Resource Creation
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
 
-  trigger:
-    - main
+trigger:
+  - main
 
-  pool:
-    vmImage: 'ubuntu-latest'
+pool:
+  vmImage: ubuntu-latest
 
-  variables:
-    azureSubscriptionId: '7232b02a-48c6-4a31-9fa8-014dc71bb52c'
-    resourceGroupName: 'MyResourceGroup'
-    location: 'eastus'  # Replace with desired location
+variables:
+  # Replace with your Azure Subscription ID
+  azureSubscriptionId: '7232b02a-48c6-4a31-9fa8-014dc71bb52c'
+  resourceGroupName: 'TestADORG'
+  location: 'eastus'  # Replace with desired location
 
-  steps:
-    - task: AzureCLI@2
-      displayName: 'Login to Azure'
-      inputs:
-        azureSubscription: ${{ variables.azureSubscription }}
-        connectedServiceName: 'ADOAPPRegistration'  # Replace with your service connection name
-        scriptType: 'bash'
-        scriptLocation: 'inlineScript'
-        inlineScript: |
-          az login --service-principal -u ${{ secrets.azureServicePrincipalAppId }} -p ${{ secrets.azureServicePrincipalPassword }} -t ${{ secrets.azureTenantId }}
+steps:
+  - script: echo Hello, world!
+    displayName: 'Run a one-line script'
 
-    - task: AzureCLI@2
-      displayName: 'Create Resource Group'
-      inputs:
-        azureSubscription: ${{ variables.azureSubscription }}
-        connectedServiceName: 'ADOAPPRegistration'  # Replace with your service connection name
-        scriptType: 'bash'
-        scriptLocation: 'inlineScript'
-        inlineScript: |
-          az group create --name ${{ variables.resourceGroupName }} --location ${{ variables.location }}
+  - task: AzureResourceGroupDeployment@2
+    displayName: 'Deploy Storage Account'
+    inputs:
+      connectedServiceName: 'ADOAPPRegistration'  # Replace with your service connection name
+      azureSubscriptionId: ${{ variables.azureSubscriptionId }}
+      action: 'Create Or Update Resource Group'
+      resourceGroupName: ${{ variables.resourceGroupName }}
+      location: ${{ variables.location }}
+      templateLocation: "URL of the file"
+      templateFile: "https://raw.githubusercontent.com/sample-projects-only/adosample1/refs/heads/main/azuredeploy.json"  # Replace with your ARM template file path
+
+  - script: |
+      echo Add other tasks to build, test, and deploy your project.
+      echo See https://aka.ms/yaml
+    displayName: 'Run a multi-line script'
