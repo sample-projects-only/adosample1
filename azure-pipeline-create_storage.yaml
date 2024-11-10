@@ -24,7 +24,7 @@ steps:
     inputs:
       connectedServiceName: 'ADOAPPRegistration'  # Replace with your service connection name
       azureSubscriptionId: ${{ variables.azureSubscriptionId }}
-      action: 'Validate'
+      action: 'Create'
       resourceGroupName: ${{ variables.resourceGroupName }}
       location: ${{ variables.location }}
       templateLocation: 'linkedFile'
