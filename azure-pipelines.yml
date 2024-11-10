@@ -28,7 +28,7 @@ steps:
       resourceGroupName: ${{ variables.resourceGroupName }}
       location: ${{ variables.location }}
       templateLocation: 'URL of the file'
-      templateFile: 'https://raw.githubusercontent.com/sample-projects-only/adosample1/refs/heads/main/azuredeploy.json'  # Replace with your ARM template file path
+      templateFile: "https://raw.githubusercontent.com/sample-projects-only/adosample1/refs/heads/main/azuredeploy.json"  # Replace with your ARM template file path
 
   - script: |
       echo Add other tasks to build, test, and deploy your project.
