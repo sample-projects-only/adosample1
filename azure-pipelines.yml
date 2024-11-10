@@ -16,6 +16,7 @@
       displayName: 'Login to Azure'
       inputs:
         azureSubscription: ${{ variables.azureSubscription }}
+        connectedServiceName: 'ADOAPPRegistration'  # Replace with your service connection name
         scriptType: 'bash'
         scriptLocation: 'inlineScript'
         inlineScript: |
@@ -25,6 +26,7 @@
       displayName: 'Create Resource Group'
       inputs:
         azureSubscription: ${{ variables.azureSubscription }}
+        connectedServiceName: 'ADOAPPRegistration'  # Replace with your service connection name
         scriptType: 'bash'
         scriptLocation: 'inlineScript'
         inlineScript: |
