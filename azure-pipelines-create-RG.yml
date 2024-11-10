@@ -13,7 +13,7 @@ steps:
     displayName: 'Create Resource Group'
     inputs:
       connectedServiceName: 'ADOAPPRegistration'  # Replace with your service connection name
-      action: 'Deploy'
+      action: 'Create'
       resourceGroupName: ${{ variables.resourceGroupName }}
       location: ${{ variables.location }}
       templateLocation: 'inlineTemplate'
