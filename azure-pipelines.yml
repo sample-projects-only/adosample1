@@ -28,5 +28,4 @@
         scriptType: 'bash'
         scriptLocation: 'inlineScript'
         inlineScript: |
-          az group create --name ${{ variables.resourceGroupName }} --location ${{ variables.location
-  }}
+          az group create --name ${{ variables.resourceGroupName }} --location ${{ variables.location }}
