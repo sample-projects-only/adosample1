@@ -5,18 +5,29 @@ pool:
   vmImage: 'ubuntu-latest'
 
 variables:
-  resourceGroupName: 'MySampleResourceGroup'
+  azureSubscription: 'Visual Studio Professional Subscription'
+  resourceGroupName: 'MyNewResourceGroup'
   location: 'eastus'  # Replace with desired location
 
 steps:
-  - task: AzureResourceGroupDeployment@2
-    displayName: 'Create Resource Group'
+  - task: AzureCLI@2
+    displayName: 'Login to Azure'
     inputs:
-      connectedServiceName: 'ADOAPPRegistration'  # Replace with your service connection name
-      action: 'Create'
+      azureSubscription: ${{ variables.azureSubscription }}
+      scriptType: 'bash'
+      inlineScript: |
+        az login --service-principal -u ${{ secrets.azureServicePrincipalAppId }} -p ${{ secrets.azureServicePrincipalPassword }} -t ${{ secrets.azureTenantId }}
+        echo "Login successful"
+
+  - task: AzureResourceGroupDeployment@2
+    displayName: 'Deploy Resource Group'
+    inputs:
+      connectedServiceName: 'ADOAPPRegistration1'
+      azureSubscriptionId: ${{ variables.azureSubscriptionId }}
+      action: 'Deploy'
       resourceGroupName: ${{ variables.resourceGroupName }}
       location: ${{ variables.location }}
-      templateLocation: 'inlineTemplate'
+      templateLocation: 'linkedTemplate'
       template: |
         {
           "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
